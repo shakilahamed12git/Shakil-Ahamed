@@ -113,6 +113,18 @@
             header#home .-bottom-20.-left-20 {
                 display: none;
             }
+            /* Camera section: make placeholder and controls fit small screens */
+            section#camera { padding-top: 2rem; padding-bottom: 2rem; }
+            section#camera .max-w-4xl { max-width: 95%; padding-left: 0.5rem; padding-right: 0.5rem; }
+            .camera-container { aspect-ratio: auto; min-height: 260px; padding: 1rem; border-radius: 1.25rem; }
+            #cameraPlaceholder { padding: 1rem; }
+            #cameraPlaceholder h2 { font-size: 1.4rem; line-height: 1.15; }
+            #cameraPlaceholder p { font-size: 0.95rem; max-width: 100%; }
+            #startBtn { padding: 0.7rem 1rem; font-size: 0.95rem; width: 92%; max-width: 320px; }
+            /* Make camera overlay guide frame slightly smaller on phones */
+            .camera-container .absolute.inset-0 .w-2\/3 { width: 92%; height: 65%; }
+            /* Ensure controls don't overflow the screen */
+            #cameraControls { left: 50%; transform: translateX(-50%); right: auto; }
         }
 
         @media (min-width: 640px) and (max-width: 1023px) {
@@ -365,6 +377,11 @@
                         class="bg-accent text-secondary font-bold px-10 py-4 rounded-full hover:scale-105 transition-all shadow-lg">
                         Enable Clinical View
                     </button>
+                    <div class="mt-4">
+                        <button id="captureBtn" class="bg-white border-2 border-slate-100 text-secondary px-6 py-3 rounded-full font-semibold hover:bg-slate-50 transition-all">Use Phone Camera</button>
+                    </div>
+                    <!-- Hidden file input for mobile camera capture (Android-friendly) -->
+                    <input id="cameraCaptureInput" type="file" accept="image/*" capture="environment" class="hidden" />
                 </div>
 
                 <!-- Active Camera Overlay -->
@@ -607,7 +624,11 @@
 
         async function startCamera() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                // Prefer rear camera on Android devices, otherwise use front camera
+                const isAndroid = /Android/i.test(navigator.userAgent || navigator.vendor || window.opera);
+                const facingPref = isAndroid ? 'environment' : 'user';
+                const constraints = { video: { facingMode: { ideal: facingPref }, width: { ideal: 1280 }, height: { ideal: 720 } } };
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
                 video.srcObject = stream;
                 video.classList.remove('hidden');
                 placeholder.classList.add('hidden');
@@ -647,6 +668,46 @@
 
         startBtn.addEventListener('click', startCamera);
         stopBtn.addEventListener('click', stopCamera);
+
+        // Mobile capture: use file input to open native camera on Android/iOS
+        const captureBtn = document.getElementById('captureBtn');
+        const cameraCaptureInput = document.getElementById('cameraCaptureInput');
+        if (captureBtn && cameraCaptureInput) {
+            captureBtn.addEventListener('click', () => cameraCaptureInput.click());
+
+            cameraCaptureInput.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+
+                const url = URL.createObjectURL(file);
+
+                // Show preview image inside the placeholder area
+                placeholder.innerHTML = '';
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = 'Captured photo';
+                img.className = 'mx-auto rounded-xl shadow-lg max-h-96 w-auto';
+                placeholder.appendChild(img);
+
+                // Add a small action row to either start live camera or retake
+                const actions = document.createElement('div');
+                actions.className = 'mt-4 flex justify-center gap-3';
+
+                const retake = document.createElement('button');
+                retake.className = 'bg-white border-2 border-slate-100 px-4 py-2 rounded font-semibold';
+                retake.innerText = 'Retake';
+                retake.addEventListener('click', () => cameraCaptureInput.click());
+
+                const live = document.createElement('button');
+                live.className = 'bg-accent text-secondary px-4 py-2 rounded font-bold';
+                live.innerText = 'Start Live Camera';
+                live.addEventListener('click', () => startCamera());
+
+                actions.appendChild(retake);
+                actions.appendChild(live);
+                placeholder.appendChild(actions);
+            });
+        }
 
         // Mobile menu toggle: open/close and close on outside click or Escape
         (function() {
