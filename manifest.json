@@ -1,0 +1,17 @@
+{
+    "name": "TUFPDF - Premium PDF Converter",
+    "short_name": "TUFPDF",
+    "description": "Premium PDF to Word & Document Converter",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#020617",
+    "theme_color": "#22d3ee",
+    "icons": [
+        {
+            "src": "logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
