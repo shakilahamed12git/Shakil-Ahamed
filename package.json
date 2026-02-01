@@ -1,0 +1,9 @@
+{
+  "name": "convertr",
+  "private": true,
+  "scripts": {
+    "dev": "python backends-python/run.py",
+    "install:deps": "pip install -r backends-python/requirements.txt",
+    "db:setup": "python -c \"import sys; sys.path.append('backends-python'); from database import init_db; init_db()\""
+  }
+}
