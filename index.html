@@ -1,738 +1,156 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhysioMotion | Premium Home Physiotherapy</title>
-    <meta name="description"
-        content="Access professional guided physiotherapy at home with our advanced camera-guided motion tracking.">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts: Outfit -->
+    <title>TUFPDF — Premium PDF to Word & Document Converter</title>
+    <meta name="description" content="Convert documents between PDF, Word, ODT, RTF, TXT, and HTML — free and fast.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0ea5e9', // Sky blue
-                        secondary: '#064e3b', // Deep emerald
-                        accent: '#c0ff72', // Electric lime
-                    },
-                    fontFamily: {
-                        outfit: ['Outfit', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .hero-gradient {
-            background: radial-gradient(circle at top right, #f0f9ff 0%, #ffffff 100%);
-        }
-
-        .camera-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-        }
-
-        video {
-            transform: scaleX(-1);
-            /* Mirror effect */
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #0ea5e9, #064e3b);
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .instruction-card:hover {
-            transform: translateY(-5px);
-            transition: all 0.3s ease;
-        }
-
-        /* Responsive adjustments for Mobile / Tablet / Laptop / TV */
-        @media (max-width: 639px) {
-            header#home {
-                padding-top: 6rem;
-                padding-bottom: 3rem;
-            }
-
-            header#home h1 {
-                font-size: 2.2rem;
-                line-height: 1.05;
-            }
-
-            header#home p {
-                font-size: 0.95rem;
-            }
-
-            .instruction-card {
-                padding: 1.25rem;
-            }
-
-            .camera-container {
-                border-radius: 1rem;
-            }
-
-            .camera-container .absolute.inset-0 .w-2\/3 {
-                width: 90%;
-                height: 70%;
-            }
-
-            img[alt="Physiotherapy at home"] {
-                width: 100%;
-                height: auto;
-                border-radius: 1.25rem;
-            }
-            /* Hide oversized decorative blobs that cause horizontal overflow on small screens */
-            header#home .-top-20.-right-20,
-            header#home .-bottom-20.-left-20 {
-                display: none;
-            }
-            /* Camera section: make placeholder and controls fit small screens */
-            section#camera { padding-top: 2rem; padding-bottom: 2rem; }
-            section#camera .max-w-4xl { max-width: 95%; padding-left: 0.5rem; padding-right: 0.5rem; }
-            .camera-container { aspect-ratio: auto; min-height: 260px; padding: 1rem; border-radius: 1.25rem; }
-            #cameraPlaceholder { padding: 1rem; }
-            #cameraPlaceholder h2 { font-size: 1.4rem; line-height: 1.15; }
-            #cameraPlaceholder p { font-size: 0.95rem; max-width: 100%; }
-            #startBtn { padding: 0.7rem 1rem; font-size: 0.95rem; width: 92%; max-width: 320px; }
-            /* Make camera overlay guide frame slightly smaller on phones */
-            .camera-container .absolute.inset-0 .w-2\/3 { width: 92%; height: 65%; }
-            /* Ensure controls don't overflow the screen */
-            #cameraControls { left: 50%; transform: translateX(-50%); right: auto; }
-        }
-
-        @media (min-width: 640px) and (max-width: 1023px) {
-            header#home h1 {
-                font-size: 3.5rem;
-            }
-
-            header#home p {
-                font-size: 1rem;
-            }
-
-            .camera-container {
-                max-width: 900px;
-            }
-        }
-
-        @media (min-width: 1024px) and (max-width: 1599px) {
-            header#home h1 {
-                font-size: 4.5rem;
-            }
-
-            .instruction-card {
-                padding: 2rem;
-            }
-
-            .camera-container {
-                max-width: 1100px;
-            }
-        }
-
-        /* TV / very large screens */
-        @media (min-width: 1600px) {
-            body {
-                font-size: 18px;
-            }
-
-            nav .glass {
-                padding: 1rem 3rem;
-            }
-
-            header#home {
-                padding-top: 6.5rem;
-                padding-bottom: 6rem;
-            }
-
-            header#home h1 {
-                font-size: 6rem;
-            }
-
-            .camera-container {
-                max-width: 1400px;
-                border-radius: 3rem;
-            }
-
-            .instruction-card {
-                padding: 2.5rem;
-            }
-
-            img[alt="Physiotherapy at home"] {
-                border-radius: 2.5rem;
-            }
-
-            #startBtn,
-            .bg-primary,
-            .bg-secondary {
-                transform: translateZ(0);
-            }
-        }
-    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#020617">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TUFPDF">
+    <link rel="apple-touch-icon" href="logo.png">
 </head>
 
-<body class="font-outfit text-slate-900 bg-white">
+<body>
+    <div class="background-glow"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-4">
-        <div class="max-w-7xl mx-auto glass rounded-2xl px-6 py-3 flex items-center justify-between shadow-lg">
-            <div class="flex items-center gap-2">
-                <div class="bg-primary p-2 rounded-lg">
-                    <i data-lucide="activity" class="text-white w-6 h-6"></i>
-                </div>
-                <span class="text-2xl font-bold tracking-tight text-secondary">Physio<span
-                        class="text-primary">Motion</span></span>
+    <!-- Top Navbar -->
+    <nav class="top-navbar glass">
+        <div class="nav-container-inner">
+            <div class="nav-left">
+                <img src="logo.png" alt="TUFPDF Logo" class="nav-logo">
+                <span class="brand-name">TUFPDF</span>
             </div>
-
-            <div class="hidden md:flex items-center gap-8 font-medium">
-                <a href="#home" data-i18n="nav_home" class="hover:text-primary transition-colors">Home</a>
-                <a href="#instructions" data-i18n="nav_instructions"
-                    class="hover:text-primary transition-colors">Instructions</a>
-                <a href="#camera" data-i18n="nav_clinic" class="hover:text-primary transition-colors">Virtual Clinic</a>
-
-                <!-- Language Selector -->
-                <div class="relative group">
-                    <button class="flex items-center gap-1 hover:text-primary transition-colors">
-                        <i data-lucide="languages" class="w-4 h-4"></i>
-                        <span id="currentLang">English</span>
-                    </button>
-                    <div
-                        class="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl border border-slate-100 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                        <button onclick="setLanguage('en')"
-                            class="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">English</button>
-                        <button onclick="setLanguage('ta')"
-                            class="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">தமிழ் (Tamil)</button>
-                        <button onclick="setLanguage('hi')"
-                            class="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">हिन्दी (Hindi)</button>
-                        <button onclick="setLanguage('ml')"
-                            class="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">മലയാളം (Malayalam)</button>
-                        <button onclick="setLanguage('fr')"
-                            class="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">Français</button>
-                        <button onclick="setLanguage('es')"
-                            class="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">Español</button>
-                        <button onclick="setLanguage('zh')"
-                            class="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">中文</button>
-                        <button onclick="setLanguage('ms')"
-                            class="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">Malay</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile menu button (visible on small screens) -->
-            <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/10 text-secondary hover:bg-white/20">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-
-            
-
-            <!-- Mobile menu (small screens) -->
-            <div id="mobileMenu"
-                class="mobile-menu hidden absolute right-6 top-full mt-3 bg-white glass p-4 rounded-xl md:hidden w-56 shadow-lg">
-                <a href="#home" class="block py-2 px-3 rounded hover:bg-slate-50">Home</a>
-                <a href="#instructions" class="block py-2 px-3 rounded hover:bg-slate-50">Instructions</a>
-                <a href="#camera" class="block py-2 px-3 rounded hover:bg-slate-50">Virtual Clinic</a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-slate-50">About</a>
+            <div class="nav-right">
+                <button id="feedback-trigger" class="feedback-btn-nav">
+                    <span>Feedback</span>
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                    </svg>
+                </button>
             </div>
         </div>
     </nav>
+    <br>
+    <br>
+    <main class="container">
+        <header class="header">
+            <h1 class="title">
+                <span class="gradient-text">TUFPDF</span>
+                <br>
+                in Seconds
+            </h1>
+            <p class="subtitle">
+                Convert documents between PDF, Word, ODT, RTF, TXT, and HTML — free and fast.
+            </p>
+        </header>
 
-    <!-- Hero Section -->
-    <header id="home" class="hero-gradient pt-32 pb-20 px-6">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8">
-                <div
-                    class="inline-flex items-center gap-2 bg-blue-50 text-primary px-4 py-2 rounded-full text-sm font-semibold border border-blue-100">
-                    <span class="relative flex h-2 w-2">
-                        <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                    </span>
-                    AI-Powered Recovery at Home
-                </div>
-                <h1 class="text-5xl lg:text-7xl font-bold leading-tight text-secondary" data-i18n="hero_title">
-                    Your Path to <br> <span class="gradient-text">Fluid Motion</span>
-                </h1>
-                <p class="text-lg text-slate-600 max-w-xl" data-i18n="hero_subtitle">
-                    Experience state-of-the-art physiotherapy from the comfort of your living room. Our motion-tracking
-                    technology ensures you're performing every exercise with clinical precision.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#camera"
-                        class="bg-primary text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:shadow-xl transition-all hover:-translate-y-1"
-                        data-i18n="btn_start">
-                        <i data-lucide="video"></i>
-                        Start Virtual Session
-                    </a>
-                    <a href="#instructions"
-                        class="bg-white border-2 border-slate-100 px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:bg-slate-50 transition-all"
-                        data-i18n="btn_view">
-                        View Instructions
-                    </a>
+        <section class="converter-card glass">
+            <h2 class="card-title">Upload & Convert</h2>
+
+            <div id="dropzone" class="dropzone">
+                <input type="file" id="fileInput" hidden>
+                <div class="dropzone-content">
+                    <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <p class="dropzone-text">Click to upload or drag and drop</p>
+                    <p class="dropzone-subtext">PDF, DOCX, PPTX, TXT, JPG, PNG (Max 50MB)</p>
                 </div>
             </div>
-            <div class="relative">
-                <div class="absolute -top-20 -right-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl -z-10"></div>
-                <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
-                <!-- Image path needs to be updated with the generated image filename -->
-                <img src="./physiotherapy_hero_illustration.png" alt="Physiotherapy at home"
-                    class="rounded-[2.5rem] shadow-2xl border-8 border-white">
-            </div>
-        </div>
-    </header>
 
-    <!-- Instructions Section -->
-    <section id="instructions" class="py-24 px-6 bg-slate-50">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 space-y-4">
-                <h2 class="text-4xl font-bold text-secondary" data-i18n="prep_title">How to Prepare</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto">Follow these four simple steps to ensure you get the most
-                    out of your home physiotherapy session.</p>
-            </div>
+            <div id="error-container" class="error-msg hidden"></div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="instruction-card bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="text-primary bg-blue-50 w-12 h-12 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="maximize"></i>
+            <div id="file-info" class="file-info hidden">
+                <div class="file-info-container">
+                    <div class="file-info-header">
+                        <span id="filename-display" class="filename">document.pdf</span>
+                        <span id="filesize-display" class="filesize">(0 KB)</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Clear Space</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Ensure you have at least 2x2 meters of clear floor
-                        space. Remove any trip hazards or loose rugs.</p>
-                </div>
-
-                <div class="instruction-card bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="text-primary bg-blue-50 w-12 h-12 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="sun"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Good Lighting</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Face a light source so your body is clearly
-                        visible to the camera. Avoid strong backlighting.</p>
-                </div>
-
-                <div class="instruction-card bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="text-primary bg-blue-50 w-12 h-12 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="smartphone"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Device Setup</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Place your device at eye level, roughly 1.5 meters
-                        away. Landscape mode is usually preferred.</p>
-                </div>
-
-                <div class="instruction-card bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="text-primary bg-blue-50 w-12 h-12 rounded-2xl flex items-center justify-center mb-6">
-                        <i data-lucide="shirt"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Attire</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Wear comfortable, form-fitting athletic wear so
-                        the motion tracker can identify your joints accurately.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Camera Section -->
-    <section id="camera" class="py-24 px-6 overflow-hidden">
-        <div class="max-w-4xl mx-auto">
-            <div class="camera-container bg-slate-900 aspect-video flex flex-col items-center justify-center relative">
-                <!-- Video Feed -->
-                <video id="webcam" autoplay playsinline
-                    class="absolute inset-0 w-full h-full object-cover hidden"></video>
-
-                <!-- Placeholder / Initial UI -->
-                <div id="cameraPlaceholder" class="z-10 text-center p-8">
-                    <div class="bg-white/10 p-6 rounded-full inline-block mb-6 animate-pulse-slow">
-                        <i data-lucide="camera-off" class="text-white w-12 h-12"></i>
-                    </div>
-                    <h2 class="text-3xl font-bold text-white mb-4">Start Your Virtual Clinic</h2>
-                    <p class="text-slate-400 mb-8 max-w-sm mx-auto">Allow camera access to begin your real-time guided
-                        exercises. Your data is processed locally and never stored.</p>
-                    <button id="startBtn"
-                        class="bg-accent text-secondary font-bold px-10 py-4 rounded-full hover:scale-105 transition-all shadow-lg">
-                        Enable Clinical View
-                    </button>
-                    <div class="mt-4">
-                        <button id="captureBtn" class="bg-white border-2 border-slate-100 text-secondary px-6 py-3 rounded-full font-semibold hover:bg-slate-50 transition-all">Use Phone Camera</button>
-                    </div>
-                    <!-- Hidden file input for mobile camera capture (Android-friendly) -->
-                    <input id="cameraCaptureInput" type="file" accept="image/*" capture="environment" class="hidden" />
-                </div>
-
-                <!-- Active Camera Overlay -->
-                <div id="cameraOverlay" class="absolute inset-0 z-20 pointer-events-none hidden">
-                    <div
-                        class="absolute top-6 left-6 flex items-center gap-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
-                        <div class="w-2 h-2 bg-white rounded-full"></div>
-                        LIVE TRACKING
-                    </div>
-
-                    <!-- Center Guide Frame -->
-                    <div class="absolute inset-0 flex items-center justify-center opacity-30">
-                        <div class="w-2/3 h-4/5 border-2 border-dashed border-accent rounded-[3rem] relative">
-                            <div
-                                class="absolute top-10 left-1/2 -translate-x-1/2 w-20 h-20 border-2 border-accent rounded-full">
-                            </div>
-                            <div
-                                class="absolute top-32 left-1/2 -translate-x-1/2 w-1 h-2/3 bg-accent shadow-[0_0_10px_#c0ff72]">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mock Motion Tracking Markers -->
-                    <div
-                        class="absolute top-1/2 left-1/3 w-4 h-4 rounded-full border-2 border-accent shadow-[0_0_15px_#c0ff72] animate-ping">
-                    </div>
-                    <div
-                        class="absolute top-1/2 right-1/3 w-4 h-4 rounded-full border-2 border-accent shadow-[0_0_15px_#c0ff72] animate-ping delay-700">
-                    </div>
-                </div>
-
-                <!-- Controls -->
-                <div id="cameraControls" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-4 hidden">
-                    <button id="stopBtn"
-                        class="bg-red-500 text-white p-4 rounded-full hover:bg-red-600 transition-colors shadow-lg">
-                        <i data-lucide="square"></i>
-                    </button>
-                    <button
-                        class="bg-white/20 backdrop-blur-md text-white p-4 rounded-full hover:bg-white/30 transition-colors shadow-lg">
-                        <i data-lucide="refresh-cw"></i>
-                    </button>
-                    <button
-                        class="bg-white/20 backdrop-blur-md text-white p-4 rounded-full hover:bg-white/30 transition-colors shadow-lg">
-                        <i data-lucide="mic"></i>
+                    <button id="remove-file-btn" class="remove-file-button" type="button" title="Remove File">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
                     </button>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-secondary text-white py-16 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-12 mb-12">
-                <div class="col-span-1 md:col-span-2 space-y-6">
-                    <div class="flex items-center gap-2">
-                        <div class="bg-primary p-2 rounded-lg">
-                            <i data-lucide="activity" class="text-white w-5 h-5"></i>
-                        </div>
-                        <span class="text-xl font-bold tracking-tight">PhysioMotion</span>
-                    </div>
-                    <p class="text-slate-400 max-w-xs">
-                        Leading the future of home-based rehabilitation through innovative AI technology and clinical
-                        expertise.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"><i
-                                data-lucide="instagram" class="w-5 h-5"></i></a>
-                        <a href="#" class="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"><i
-                                data-lucide="twitter" class="w-5 h-5"></i></a>
-                        <a href="#" class="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"><i
-                                data-lucide="linkedin" class="w-5 h-5"></i></a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-6">Quick Links</h4>
-                    <ul class="space-y-4 text-slate-400">
-                        <li><a href="#" class="hover:text-primary transition-colors">Find a Clinic</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Our Method</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Success Stories</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Equipment</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-6">Legal</h4>
-                    <ul class="space-y-4 text-slate-400">
-                        <li><a href="#" class="hover:text-primary transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Medical Disclaimer</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors">Cookie Policy</a></li>
-                    </ul>
+            <div id="format-selection" class="format-selection hidden">
+                <label class="label">Choose Target Format</label>
+                <div id="format-options" class="format-options">
+                    <!-- Format options will be injected here -->
                 </div>
             </div>
 
-            <div
-                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-                <p>&copy; 2024 PhysioMotion AI. All rights reserved.</p>
-                <p>Built for better health, everywhere.</p>
+            <button id="convert-btn" class="convert-btn hidden" disabled>
+                <span class="btn-text">Convert</span>
+                <div class="spinner hidden"></div>
+            </button>
+
+            <div id="success-container" class="success-msg hidden">
+                <p class="success-text">Conversion complete!</p>
+                <a id="download-link" href="#" class="download-btn">
+                    <svg class="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span id="download-text">Download File</span>
+                </a>
+            </div>
+        </section>
+
+        <div class="ad-container bottom-ad">
+            <div class="ad-content">
+                <span class="ad-label">Advertisement</span>
+                <!-- Ad code here -->
+                <p>Your Premium Conversion Partner</p>
             </div>
         </div>
-    </footer>
 
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+        <footer class="footer">
+            <p>&copy; 2026 TUFPDF. Premium File Conversion.</p>
+        </footer>
+    </main>
 
-        // Translations Dictionary
-        const translations = {
-            en: {
-                nav_home: "Home", nav_instructions: "Instructions", nav_clinic: "Virtual Clinic",
-                hero_title: "Your Path to <br> <span class='gradient-text'>Fluid Motion</span>",
-                hero_subtitle: "Experience state-of-the-art physiotherapy from the comfort of your living room.",
-                btn_start: "Start Virtual Session", btn_view: "View Instructions",
-                prep_title: "How to Prepare", camera_title: "Start Your Virtual Clinic",
-                enable_btn: "Enable Clinical View",
-                instructions_steps: [
-                    "Welcome to your virtual session. Please stand 5 feet back so your whole body is visible.",
-                    "Great. Ensure your joints are within the bright green markers.",
-                    "We are beginning with gentle neck rotations. Follow the rhythm.",
-                    "Now, slowly raise your right arm to a ninety-degree angle.",
-                    "Keep your back straight and breathe deeply.",
-                    "Excellent form. Hold that position for three more seconds."
-                ]
-            },
-            ta: {
-                nav_home: "முகப்பு", nav_instructions: "வழிமுறைகள்", nav_clinic: "மெய்நிகர் கிளினிக்",
-                hero_title: "உங்கள் ஆரோக்கிய <br> <span class='gradient-text'>பயணம் இங்கே</span>",
-                hero_subtitle: "உங்கள் வீட்டிலிருந்தே நவீன பிசியோதெரபி சிகிச்சையைப் பெறுங்கள்.",
-                btn_start: "மெய்நிகர் அமர்வைத் தொடங்கு", btn_view: "வழிமுறைகளைப் பார்",
-                prep_title: "தயார் செய்வது எப்படி", camera_title: "உங்கள் பயிற்சியைத் தொடங்குங்கள்",
-                enable_btn: "கேமராவை இயக்கு",
-                instructions_steps: [
-                    "உங்கள் மெய்நிகர் அமர்வுக்கு வரவேற்கிறோம். உங்கள் உடல் முழுமையாகத் தெரியுமாறு 5 அடி பின்னால் நிற்கவும்.",
-                    "சிறந்தது. உங்கள் மூட்டுகள் பச்சை நிறக் குறிகளுக்குள் இருப்பதை உறுதிப்படுத்தவும்.",
-                    "இப்போது கழுத்து சுழற்சி பயிற்சியைத் தொடங்குவோம்.",
-                    "மெதுவாக உங்கள் வலது கையை 90 டிகிரி கோணத்தில் உயர்த்தவும்.",
-                    "முதுகை நேராக வைத்து ஆழ்ந்து சுவாசிக்கவும்.",
-                    "மிகவும் நன்று. இதே நிலையில் 3 வினாடிகள் இருக்கவும்."
-                ]
-            },
-            hi: {
-                nav_home: "होम", nav_instructions: "निर्देश", nav_clinic: "ऑनलाइन क्लीनिक",
-                hero_title: "बेहतर स्वास्थ्य की <br> <span class='gradient-text'>ओर एक कदम</span>",
-                hero_subtitle: "अपने घर के आराम से अत्याधुनिक फिजियोथेरेपी का अनुभव करें।",
-                btn_start: "सत्र शुरू करें", btn_view: "निर्देश देखें",
-                prep_title: "तैयारी कैसे करें", camera_title: "अपना अभ्यास शुरू करें",
-                enable_btn: "कैमरा शुरू करें",
-                instructions_steps: [
-                    "आपके ऑनलाइन सत्र में आपका स्वागत है। कृपया 5 फीट पीछे खड़े हों ताकि आपका शरीर पूरा दिखे।",
-                    "बहुत अच्छा। सुनिश्चित करें कि आपके जोड़ हरे निशानों के बीच में हैं।",
-                    "हम गर्दन के व्यायाम से शुरुआत कर रहे हैं।",
-                    "अब धीरे-धीरे अपना दाहिना हाथ उठाएं।",
-                    "अपनी पीठ सीधी रखें और गहरी सांस लें।",
-                    "उत्कृष्ट। इस स्थिति में 3 सेकंड तक रुकें।"
-                ]
-            },
-            ml: {
-                nav_home: "ഹോം", nav_instructions: "നിർദ്ദേശങ്ങൾ", nav_clinic: "വെർച്വൽ ക്ലിനിക്ക്",
-                hero_title: "ആരോഗ്യത്തിലേക്കുള്ള <br> <span class='gradient-text'>നിങ്ങളുടെ പാത</span>",
-                hero_subtitle: "വീട്ടിലിരുന്നുതന്നെ അത്യാധുനിക ഫിസിയോതെറാപ്പി അനുഭവിച്ചറിയൂ.",
-                btn_start: "സെഷൻ ആരംഭിക്കുക", btn_view: "നിർദ്ദേശങ്ങൾ കാണുക",
-                prep_title: "എങ്ങനെ തയ്യാറെടുക്കാം", camera_title: "പരിശീലനം തുടങ്ങാം",
-                enable_btn: "ക്ലിനിക്കൽ വ്യൂ ലഭ്യമാക്കുക",
-                instructions_steps: [
-                    "വെർച്വൽ സെഷനിലേക്ക് സ്വാഗതം. ശരീരം പൂർണ്ണമായും കാണാൻ 5 അടി പിന്നിലേക്ക് മാറി നിൽക്കുക.",
-                    "നന്നായിട്ടുണ്ട്. നിങ്ങളുടെ ജോയിന്റുകൾ അടയാളങ്ങൾക്കുള്ളിലാണെന്ന് ഉറപ്പാക്കുക.",
-                    "നമുക്ക് ലഘുവായ കഴുത്ത് വ്യായാമങ്ങളിൽ നിന്ന് തുടങ്ങാം.",
-                    "ഇനി പതിയെ നിങ്ങളുടെ വലതു കൈ ഉയർത്തുക.",
-                    "നട്ടെല്ല് നേരെയാക്കി ദീർഘമായി ശ്വസിക്കുക.",
-                    "മികച്ച രീതി. ഈ നിലയിൽ 3 സെക്കൻഡ് തുടരുക."
-                ]
-            },
-            fr: { nav_home: "Accueil", nav_instructions: "Instructions", nav_clinic: "Clinique Virtuelle", hero_title: "Votre chemin vers le <br> <span class='gradient-text'>mouvement fluide</span>", hero_subtitle: "Découvrez la physiothérapie de pointe dans le confort de votre salon.", btn_start: "Démarrer la session", btn_view: "Voir les instructions", prep_title: "Comment se préparer", camera_title: "Démarrer la clinique virtuelle", enable_btn: "Activer la vue clinique" },
-            es: { nav_home: "Inicio", nav_instructions: "Instrucciones", nav_clinic: "Clínica Virtual", hero_title: "Su camino hacia el <br> <span class='gradient-text'>movimiento fluido</span>", hero_subtitle: "Experimente fisioterapia de vanguardia desde la comodidad de su hogar.", btn_start: "Iniciar sesión", btn_view: "Ver instrucciones", prep_title: "Cómo prepararse", camera_title: "Iniciar clínica virtual", enable_btn: "Activar vista clínica" },
-            zh: { nav_home: "首页", nav_instructions: "操作指南", nav_clinic: "虚拟诊所", hero_title: "迈向 <br> <span class='gradient-text'>流体运动</span> 之路", hero_subtitle: "在舒适的客厅中体验先进的理疗服务。", btn_start: "开始训练", btn_view: "查看指南", prep_title: "准备工作", camera_title: "开始虚拟诊所", enable_btn: "启用临床视图" },
-            ms: { nav_home: "Laman Utama", nav_instructions: "Arahan", nav_clinic: "Klinik Maya", hero_title: "Laluan Anda ke <br> <span class='gradient-text'>Gerakan Lancar</span>", hero_subtitle: "Alami fisioterapi moden dari keselesaan rumah anda.", btn_start: "Mulakan Sesi", btn_view: "Lihat Arahan", prep_title: "Cara Bersedia", camera_title: "Mulakan Klinik Maya", enable_btn: "Aktifkan Pandangan Klinikal" }
-        };
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-container glass">
+            <div class="modal-header">
+                <h3>Send Feedback</h3>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-text">Have a suggestion or found a bug? Contact us directly via Gmail:</p>
+                <a href="https://mail.google.com/mail/?tab=rm&ogbl" target="_blank" class="gmail-link">
+                    <div class="gmail-icon-wrapper">
+                        <svg class="gmail-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M24 4.5v15c0 .85-.65 1.5-1.5 1.5H21V7.38l-9 6.75-9-6.75V21H1.5C.65 21 0 20.35 0 19.5v-15c0-.42.17-.82.48-1.12A1.47 1.47 0 0 1 1.5 3h.12l10.38 7.78L22.38 3h.12c.42 0 .82.17 1.12.48.31.3.48.7.48 1.12z"
+                                fill="#EA4335" />
+                        </svg>
+                    </div>
+                    <span>Compose Email</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-        let currentLang = 'en';
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.getElementById('currentLang').innerText = document.querySelector(`button[onclick="setLanguage('${lang}')"]`).innerText.split('(')[0].trim();
-
-            // Update UI elements
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
-            });
-
-            // Special cases for buttons & headers
-            if (translations[lang].hero_title) document.querySelector('h1').innerHTML = translations[lang].hero_title;
-        }
-
-        // Camera & Voice Logic
-        const video = document.getElementById('webcam');
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const placeholder = document.getElementById('cameraPlaceholder');
-        const controls = document.getElementById('cameraControls');
-        const overlay = document.getElementById('cameraOverlay');
-
-        const synth = window.speechSynthesis;
-        let instructionInterval;
-        let currentStep = 0;
-
-        function speak(text) {
-            if (synth.speaking) synth.cancel();
-            const utter = new SpeechSynthesisUtterance(text);
-
-            // Map language to voice
-            const voiceMap = {
-                'en': 'en-US',
-                'ta': 'ta-IN',
-                'hi': 'hi-IN',
-                'ml': 'ml-IN',
-                'fr': 'fr-FR',
-                'es': 'es-ES',
-                'zh': 'zh-CN',
-                'ms': 'ms-MY'
-            };
-            utter.lang = voiceMap[currentLang] || 'en-US';
-            utter.rate = 0.9;
-            synth.speak(utter);
-
-            // UI text overlay
-            const existing = document.getElementById('voiceText');
-            if (existing) existing.remove();
-
-            const textContainer = document.createElement('div');
-            textContainer.id = "voiceText";
-            textContainer.className = "absolute bottom-10 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md text-white px-6 py-3 rounded-2xl text-lg font-semibold border border-white/20 text-center transition-all duration-500 max-w-[80%]";
-            textContainer.innerText = text;
-            overlay.appendChild(textContainer);
-        }
-
-        async function startCamera() {
-            try {
-                // Prefer rear camera on Android devices, otherwise use front camera
-                const isAndroid = /Android/i.test(navigator.userAgent || navigator.vendor || window.opera);
-                const facingPref = isAndroid ? 'environment' : 'user';
-                const constraints = { video: { facingMode: { ideal: facingPref }, width: { ideal: 1280 }, height: { ideal: 720 } } };
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                video.srcObject = stream;
-                video.classList.remove('hidden');
-                placeholder.classList.add('hidden');
-                controls.classList.remove('hidden');
-                overlay.classList.remove('hidden');
-
-                // Start Voice Guidance in selected language
-                const langSteps = translations[currentLang]?.instructions_steps || translations['en'].instructions_steps;
-                currentStep = 0;
-                speak(langSteps[currentStep]);
-
-                instructionInterval = setInterval(() => {
-                    currentStep++;
-                    if (currentStep < langSteps.length) {
-                        speak(langSteps[currentStep]);
-                    } else {
-                        currentStep = 2; // Loop
-                        speak(langSteps[currentStep]);
-                    }
-                }, 8000);
-            } catch (err) {
-                alert("Camera access denied.");
-            }
-        }
-
-        function stopCamera() {
-            const stream = video.srcObject;
-            if (stream) stream.getTracks().forEach(track => track.stop());
-            video.srcObject = null;
-            video.classList.add('hidden');
-            placeholder.classList.remove('hidden');
-            controls.classList.add('hidden');
-            overlay.classList.add('hidden');
-            clearInterval(instructionInterval);
-            synth.cancel();
-        }
-
-        startBtn.addEventListener('click', startCamera);
-        stopBtn.addEventListener('click', stopCamera);
-
-        // Mobile capture: use file input to open native camera on Android/iOS
-        const captureBtn = document.getElementById('captureBtn');
-        const cameraCaptureInput = document.getElementById('cameraCaptureInput');
-        if (captureBtn && cameraCaptureInput) {
-            captureBtn.addEventListener('click', () => cameraCaptureInput.click());
-
-            cameraCaptureInput.addEventListener('change', (e) => {
-                const file = e.target.files && e.target.files[0];
-                if (!file) return;
-
-                const url = URL.createObjectURL(file);
-
-                // Show preview image inside the placeholder area
-                placeholder.innerHTML = '';
-                const img = document.createElement('img');
-                img.src = url;
-                img.alt = 'Captured photo';
-                img.className = 'mx-auto rounded-xl shadow-lg max-h-96 w-auto';
-                placeholder.appendChild(img);
-
-                // Add a small action row to either start live camera or retake
-                const actions = document.createElement('div');
-                actions.className = 'mt-4 flex justify-center gap-3';
-
-                const retake = document.createElement('button');
-                retake.className = 'bg-white border-2 border-slate-100 px-4 py-2 rounded font-semibold';
-                retake.innerText = 'Retake';
-                retake.addEventListener('click', () => cameraCaptureInput.click());
-
-                const live = document.createElement('button');
-                live.className = 'bg-accent text-secondary px-4 py-2 rounded font-bold';
-                live.innerText = 'Start Live Camera';
-                live.addEventListener('click', () => startCamera());
-
-                actions.appendChild(retake);
-                actions.appendChild(live);
-                placeholder.appendChild(actions);
-            });
-        }
-
-        // Mobile menu toggle: open/close and close on outside click or Escape
-        (function() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            if (!mobileMenuBtn || !mobileMenu) return;
-
-            mobileMenuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Close when clicking outside
-            document.addEventListener('click', (ev) => {
-                if (!mobileMenu.contains(ev.target) && ev.target !== mobileMenuBtn) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-
-            // Close on Escape key
-            document.addEventListener('keydown', (ev) => {
-                if (ev.key === 'Escape') mobileMenu.classList.add('hidden');
-            });
-        })();
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
